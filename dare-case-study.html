@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-ARE — Tina Behrouz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f3ee;
+    --accent: #b5651d;
+    --accent-light: #e8d5c0;
+    --mid: #6b6560;
+    --border: #d8d2c8;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--black); text-decoration: none; }
+  .nav-back { font-size: 13px; color: var(--mid); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+  .nav-back:hover { color: var(--black); }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2.5rem 4rem;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .year { font-size: 13px; color: var(--mid); }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--white);
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--black);
+    display: block;
+  }
+  .stat-label { font-size: 12px; color: var(--mid); }
+
+  /* SECTION */
+  section {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--black);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  p { color: var(--mid); margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* IMAGE */
+  .project-image {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: block;
+    margin-top: 1.5rem;
+    object-fit: cover;
+  }
+  .image-caption {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  .gallery-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+  .gallery-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+  .gallery-2 img, .gallery-3 img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    object-fit: cover;
+  }
+
+  /* PROBLEM BOX */
+  .problem-box {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .problem-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+  .problem-box p { color: #b0aaa4; margin: 0; }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .feature-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .feature-icon { font-size: 20px; margin-bottom: 0.5rem; }
+  .feature-item h4 { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+  .feature-item p { font-size: 13px; color: var(--mid); margin: 0; }
+
+  /* ROLE */
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .role-item { border-left: 2px solid var(--accent); padding-left: 1rem; }
+  .role-item h4 { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+  .role-item p { font-size: 13px; color: var(--mid); margin: 0; }
+
+  /* TECH STACK */
+  .tech-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .tech-tag {
+    font-size: 12px;
+    color: var(--black);
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--white);
+  }
+
+  /* OUTCOME */
+  .outcome-box {
+    background: var(--accent-light);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    border: 1px solid var(--accent);
+  }
+  .outcome-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+  .outcome-box p { color: #5a4535; margin: 0; }
+
+  /* PUBLICATIONS */
+  .pub-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 12px; }
+  .pub-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  .pub-item:hover { border-color: var(--accent); }
+  .pub-title { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+  .pub-venue { font-size: 12px; color: var(--mid); }
+  .pub-link {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid var(--accent);
+    padding: 5px 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .pub-link:hover { background: var(--accent); color: white; }
+
+  /* PROCESS */
+  .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 1.5rem; }
+  .process-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .process-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--accent-light);
+    flex-shrink: 0;
+    width: 36px;
+    line-height: 1;
+  }
+  .step-content h4 { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: var(--mid); margin: 0; }
+
+  /* FOOTER */
+  .footer-note {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-note p { font-size: 13px; color: var(--mid); margin: 0; }
+  .next-btn {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .next-btn:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    section { padding: 2rem 1.25rem; }
+    .hero-stats { grid-template-columns: repeat(3, 1fr); }
+    .features-grid { grid-template-columns: 1fr; }
+    .role-grid { grid-template-columns: 1fr; }
+    .gallery-2, .gallery-3 { grid-template-columns: 1fr; }
+    .pub-item { flex-direction: column; align-items: flex-start; }
+    .footer-note { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Tina Behrouz</a>
+  <a class="nav-back" href="index.html">Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag">AR / UX Research</span>
+    <span class="tag">Thesis Project</span>
+    <span class="year">2023 – 2024</span>
+  </div>
+  <h1>D-ARE — Design <em>Democratization</em><br>through AR-based Evaluation</h1>
+  <p class="hero-sub">Bringing citizens into the design conversation, in the real world, in real time. A location-based AR app that lets everyday people see, explore, and give feedback on proposed public sculptures directly in their actual environment.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">20</span>
+      <span class="stat-label">Study participants</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Published papers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Design alternatives</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section>
+  <div class="section-label">The Context</div>
+  <h2>Three sculpture proposals. One real public space.</h2>
+  <p>The study took place at Surrey Central, a busy public plaza in Surrey, BC. Citizens were invited to use the app to evaluate three distinct sculpture design alternatives: a helix-cone, a sliced-torus, and a multi-curve form. Each could be viewed in full AR, anchored to the actual site.</p>
+  <!-- Replace the src below with your actual image path once you add images to the folder -->
+  <!-- <img class="project-image" src="images/sculptures.png" alt="Three sculpture alternatives at Surrey Central"> -->
+  <!-- <p class="image-caption">The three sculpture alternatives as seen through D-ARE at Surrey Central, BC.</p> -->
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="section-label">The Problem</div>
+  <h2>Citizens had no meaningful way to participate in design decisions that shaped their environment.</h2>
+  <p>When designers propose changes to public spaces, the people who actually live and work there rarely get a genuine say. Traditional engagement methods like town halls, printed boards, and surveys are abstract, hard to visualize, and often inaccessible to non-experts.</p>
+  <div class="problem-box">
+    <h3>The communication gap</h3>
+    <p>Designers speak in technical language. Citizens see flat renders on paper. Neither side can bridge that gap effectively, and the result is built environments that do not truly serve the communities they are meant for.</p>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section>
+  <div class="section-label">The Solution</div>
+  <h2>See it. Walk around it. Compare it. Vote on it.</h2>
+  <p>D-ARE is a location-based mobile AR app that places 3D design proposals directly in their real-world context. Users walk up to the site, point their phone, and interact with the designs as if they were already built, then share their feedback on the spot.</p>
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">📍</div>
+      <h4>In-situ AR visualization</h4>
+      <p>See all 3 design proposals placed in the actual location, at real scale.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔄</div>
+      <h4>Full 3D interaction</h4>
+      <p>Walk around, zoom in, change angles and explore from any perspective.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📊</div>
+      <h4>Performance data view</h4>
+      <p>Access material, cost, and sustainability data per design in a separate tab.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">⚖️</div>
+      <h4>Side-by-side comparison</h4>
+      <p>Compare all proposals at once across visual and data dimensions.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">💬</div>
+      <h4>Feedback and discussion</h4>
+      <p>Submit opinions per proposal and see what other citizens think.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🗺️</div>
+      <h4>Location-aware navigation</h4>
+      <p>GPS guides users to the exact spot where AR content is anchored.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTERFACE -->
+<section>
+  <div class="section-label">The Interface</div>
+  <h2>From map to AR to decision, one seamless flow.</h2>
+  <p>The app guides citizens through a clear journey: find the site, view the proposals in AR, explore the data, compare, and share feedback.</p>
+  <!-- Uncomment and update paths once you add your images -->
+  <!-- 
+  <div class="gallery-2">
+    <img src="images/ar-view.png" alt="AR view of sculpture in real context">
+    <img src="images/app-screens.png" alt="Data, comparison and feedback screens">
+  </div>
+  <p class="image-caption">Left: AR view with sculpture placed in the real environment. Right: data view, comparison and feedback screens.</p>
+  -->
+</section>
+
+<!-- ROLE -->
+<section>
+  <div class="section-label">My Role</div>
+  <h2>Research, Design, and Development</h2>
+  <p>I led this project end-to-end as part of my master's thesis at Simon Fraser University, working across all phases of the design and research cycle.</p>
+  <div class="role-grid">
+    <div class="role-item">
+      <h4>UX Research</h4>
+      <p>Literature review, user study design, 20-participant usability testing, post-task surveys.</p>
+    </div>
+    <div class="role-item">
+      <h4>Interface Design</h4>
+      <p>Wireframing, lo-fi prototyping in Figma, and AR interaction design.</p>
+    </div>
+    <div class="role-item">
+      <h4>Development</h4>
+      <p>Built the Android app using Unity and ARCore, integrated Google Maps, Google Cloud, and Cesium.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="section-label">The Process</div>
+  <h2>From whiteboard to field deployment.</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h4>Literature review and existing tool analysis</h4>
+        <p>Evaluated 4 existing public engagement tools to identify gaps and design opportunities.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h4>Ideation and whiteboard sketching</h4>
+        <p>Mapped use cases, user flows, and interaction patterns. Explored how to make complex design data accessible to non-expert users.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h4>Lo-fi prototyping in Figma</h4>
+        <p>Translated sketches into structured wireframes covering all 5 key screens: listing, AR view, data, comparison, and feedback.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h4>Development in Unity and ARCore</h4>
+        <p>Built the Android prototype integrating GPS, camera, 3D model rendering via Cesium, and Google Cloud for model storage.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h4>User study at Surrey Central</h4>
+        <p>Deployed with 20 participants on-site. Collected task completion data, interaction patterns, and post-task survey responses.</p>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="gallery-2">
+    <img src="images/sketches.png" alt="Whiteboard sketches from early ideation">
+    <img src="images/figma-unity.png" alt="Figma prototype and Unity development">
+  </div>
+  -->
+</section>
+
+<!-- TECH -->
+<section>
+  <div class="section-label">Tech Stack</div>
+  <h2>Built with precision tools for AR at scale.</h2>
+  <div class="tech-list">
+    <span class="tech-tag">Unity</span>
+    <span class="tech-tag">ARCore</span>
+    <span class="tech-tag">Google Maps SDK</span>
+    <span class="tech-tag">Google Cloud</span>
+    <span class="tech-tag">Cesium for Unity</span>
+    <span class="tech-tag">Figma</span>
+    <span class="tech-tag">Android APK</span>
+  </div>
+</section>
+
+<!-- OUTCOME -->
+<section>
+  <div class="section-label">Outcome</div>
+  <h2>Engaging, easy to use, and published.</h2>
+  <p>The user study with 20 participants confirmed that placing design proposals in their real-world AR context significantly lowered the barrier for non-expert citizens to understand and evaluate complex design decisions.</p>
+  <div class="outcome-box">
+    <h3>Key findings</h3>
+    <p>Participants rated the app as both engaging and easy to use. Seeing proposals in-situ from multiple perspectives helped them better understand the visual and spatial qualities of each design, and made the comparison and decision process feel much more natural. The research was accepted and published in three international peer-reviewed conferences.</p>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section>
+  <div class="section-label">Publications</div>
+  <h2>Research that reached the academic community.</h2>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">D-ARE: A Location-Based AR Tool for Public Engagement in Design of Built Environments</div>
+        <div class="pub-venue">CAADRIA 2024 — 29th International Conference, Hong Kong</div>
+      </div>
+      <a class="pub-link" href="https://caadria2024.org/wp-content/uploads/2024/04/543-D-ARE.pdf" target="_blank">Read</a>
+    </div>
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">D-ARE: Evaluating a Location-Based AR Tool for Public Engagement</div>
+        <div class="pub-venue">HCI International 2025 — Springer</div>
+      </div>
+      <a class="pub-link" href="https://link.springer.com/chapter/10.1007/978-3-031-93064-5_14" target="_blank">Read</a>
+    </div>
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">D-ARE: Further findings on AR-based public engagement</div>
+        <div class="pub-venue">CAADFutures 2025</div>
+      </div>
+      <a class="pub-link" href="#">Coming soon</a>
+    </div>
+  </div>
+</section>
+
+<div class="footer-note">
+  <p>MSc Thesis — Simon Fraser University, Vancouver, BC</p>
+  <a class="next-btn" href="index.html">Back to all projects</a>
+</div>
+
+</body>
+</html>
