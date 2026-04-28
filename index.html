@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tina Behrouz — Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f3ee;
+    --accent: #b5651d;
+    --accent-light: #e8d5c0;
+    --mid: #6b6560;
+    --border: #d8d2c8;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--mid);
+    text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--black); }
+  .nav-cta {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .nav-cta:hover { background: var(--accent); color: white; }
+
+  /* HERO */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 6rem 2.5rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 1.25rem;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-text p {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  .badge {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #2a2a2a; }
+  .btn-outline {
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    color: var(--black);
+    padding: 10px 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--black); }
+
+  .hero-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  /* PROJECTS */
+  .projects {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+  }
+  .projects-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2.5rem;
+  }
+  .projects-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--black);
+  }
+  .projects-header span {
+    font-size: 12px;
+    color: var(--mid);
+  }
+
+  /* PROJECT CARDS */
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: var(--accent); }
+  .project-card.reverse { direction: rtl; }
+  .project-card.reverse > * { direction: ltr; }
+
+  .card-image {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #e8e2d8;
+  }
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* placeholder gradients for cards without images */
+  .card-image.dare { background: linear-gradient(135deg, #c8d8e8 0%, #8fafc8 100%); }
+  .card-image.pinito { background: linear-gradient(135deg, #1a1a2e 0%, #2d2060 100%); }
+  .card-image.tool { background: linear-gradient(135deg, #d4e8d0 0%, #90b890 100%); }
+
+  .card-body {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .card-tag {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .card-body h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .card-body p {
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .card-link {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-link:hover { text-decoration: underline; }
+  .card-meta {
+    font-size: 11px;
+    color: var(--mid);
+    margin-top: 0.5rem;
+  }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--black);
+    padding: 4rem 2.5rem;
+  }
+  .about-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-strip h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .about-strip h2 em { font-style: italic; color: var(--accent-light); }
+  .about-strip p { color: #a09890; font-size: 14px; line-height: 1.8; margin-bottom: 1rem; }
+  .about-strip p:last-child { margin-bottom: 0; }
+
+  .skills-col h4 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 1rem;
+  }
+  .skills-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+  .skill-row { display: flex; align-items: center; gap: 1rem; }
+  .skill-name { font-size: 13px; color: #c0b8b0; width: 120px; flex-shrink: 0; }
+  .skill-bar-bg {
+    flex: 1;
+    height: 3px;
+    background: #2a2a2a;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-bar { height: 100%; background: var(--accent); border-radius: 2px; }
+
+  /* CONTACT */
+  .contact {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 4rem 2.5rem;
+    text-align: center;
+  }
+  .contact h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: var(--black);
+    margin-bottom: 1rem;
+  }
+  .contact h2 em { font-style: italic; color: var(--accent); }
+  .contact p { color: var(--mid); max-width: 400px; margin: 0 auto 2rem; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .contact-link {
+    font-size: 13px;
+    color: var(--black);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 8px;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer p { font-size: 12px; color: var(--mid); }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 1rem; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 3rem 1.25rem;
+      text-align: center;
+    }
+    .hero-photo { display: none; }
+    .hero-badges { justify-content: center; }
+    .hero-actions { justify-content: center; }
+    .projects { padding: 2.5rem 1.25rem; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-card.reverse { direction: ltr; }
+    .card-image { aspect-ratio: 16/9; }
+    .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .about-strip { padding: 3rem 1.25rem; }
+    .contact { padding: 3rem 1.25rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Tina Behrouz</a>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a class="nav-cta" href="mailto:tinabehrouz@gmail.com">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="hero-badges">
+      <span class="badge">Product Designer</span>
+      <span class="badge">UX / UI</span>
+      <span class="badge">AR / VR</span>
+    </div>
+    <h1>Designing experiences that make <em>complex things</em> feel simple.</h1>
+    <p>5+ years working across mobile, web, and immersive AR/VR. From user research through to developer handoff. Based in Vancouver, BC, and currently open to new opportunities.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#work">View my work</a>
+      <a class="btn-outline" href="mailto:tinabehrouz@gmail.com">Get in touch</a>
+    </div>
+  </div>
+  <!-- Replace the src with your actual photo path once uploaded -->
+  <!-- <img class="hero-photo" src="images/tina.jpg" alt="Tina Behrouz"> -->
+</div>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<div class="projects" id="work">
+  <div class="projects-header">
+    <h2>Selected work</h2>
+    <span>2021 – 2024</span>
+  </div>
+
+  <!-- D-ARE -->
+  <a class="project-card" href="dare-case-study.html">
+    <div class="card-image dare">
+      <img src="images/1.png" alt="D-ARE AR project" onerror="this.style.display='none'">
+    </div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="card-tag">AR</span>
+        <span class="card-tag">UX Research</span>
+        <span class="card-tag">Thesis</span>
+      </div>
+      <h3>D-ARE — Design Democratization through AR</h3>
+      <p>A location-based AR app that lets citizens see, explore, and vote on proposed public sculptures placed directly in their real-world environment.</p>
+      <span class="card-link">View case study →</span>
+      <p class="card-meta">3 published papers · 20 study participants · Surrey, BC</p>
+    </div>
+  </a>
+
+  <!-- PINITO -->
+  <a class="project-card reverse" href="#" style="pointer-events:none; opacity:0.85">
+    <div class="card-image pinito"></div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="card-tag">VR</span>
+        <span class="card-tag">Web Platform</span>
+      </div>
+      <h3>PINITO — Virtual Reality Art Exhibition</h3>
+      <p>When the pandemic disrupted physical exhibitions, PINITO reimagined how design students could share their work through a fully immersive, web-based VR experience.</p>
+      <span class="card-link" style="color:var(--mid)">Case study coming soon</span>
+      <p class="card-meta">First university VR exhibition in Iran</p>
+    </div>
+  </a>
+
+  <!-- TOOL DESIGN -->
+  <a class="project-card" href="#" style="pointer-events:none; opacity:0.85">
+    <div class="card-image tool"></div>
+    <div class="card-body">
+      <div class="card-tags">
+        <span class="card-tag">Data Viz</span>
+        <span class="card-tag">Tool Design</span>
+      </div>
+      <h3>Immigrant Demographics Visualization</h3>
+      <p>Maps and interactive diagrams visualizing Iranian immigrant demographics in Canada, designed to make complex data sets accessible and understandable.</p>
+      <span class="card-link" style="color:var(--mid)">Case study coming soon</span>
+    </div>
+  </a>
+
+</div>
+
+<!-- ABOUT -->
+<div class="about-strip" id="about">
+  <div class="about-inner">
+    <div>
+      <h2>Designing at the edge of <em>technology and people.</em></h2>
+      <p>I hold an MSc in Interactive Arts and Technology from Simon Fraser University, with a background in architectural engineering. That combination shapes how I think: I care about both the systems behind a product and the people who use it.</p>
+      <p>I work across the full design cycle, from early research and whiteboard sessions through wireframing, prototyping, and developer handoff. I am most drawn to projects that involve spatial interfaces, new technology, and genuine user complexity.</p>
+      <p>Currently open to UX/UI and Product Design opportunities in Vancouver.</p>
+    </div>
+    <div class="skills-col">
+      <h4>Core skills</h4>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <span class="skill-name">UX Research</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Figma</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Prototyping</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">AR / VR Design</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Design Systems</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Unity / ARCore</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div>
+        </div>
+        <div class="skill-row">
+          <span class="skill-name">Adobe XD</span>
+          <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact">
+  <h2>Let's work <em>together.</em></h2>
+  <p>I am currently open to full-time and contract opportunities in Vancouver. Feel free to reach out.</p>
+  <div class="contact-links">
+    <a class="contact-link" href="mailto:tinabehrouz@gmail.com">tinabehrouz@gmail.com</a>
+    <a class="contact-link" href="https://www.linkedin.com/in/tina-behrouz" target="_blank">LinkedIn</a>
+    <a class="contact-link" href="https://tinabehrouz.wixsite.com/tina-behrouz" target="_blank">Old portfolio</a>
+  </div>
+</div>
+
+<footer>
+  <p>Tina Behrouz — Vancouver, BC</p>
+  <p>Designed and built from scratch · 2024</p>
+</footer>
+
+</body>
+</html>
