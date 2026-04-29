@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpaceGraph — Tina Behrouz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f3ee;
+    --accent: #1a5c4a;
+    --accent-light: #e0f0eb;
+    --mid: #6b6560;
+    --border: #d8d2c8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--black);
+    text-decoration: none;
+  }
+  .nav-back { font-size: 13px; color: var(--mid); text-decoration: none; }
+  .nav-back:hover { color: var(--black); }
+
+  .hero {
+    padding: 5rem 2.5rem 4rem;
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .year { font-size: 13px; color: var(--mid); }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--mid);
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 500px;
+  }
+  .stat {
+    background: var(--white);
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--black);
+    display: block;
+  }
+  .stat-label { font-size: 12px; color: var(--mid); }
+
+  section {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--black);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  p { color: var(--mid); margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .img-full {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+    margin-top: 1.5rem;
+    border: 1px solid var(--border);
+    object-fit: cover;
+  }
+  .img-caption {
+    font-size: 12px;
+    color: var(--mid);
+    margin-top: 0.6rem;
+    font-style: italic;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .split img {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    display: block;
+  }
+  .split-text h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .split-text p { font-size: 14px; }
+
+  .problem-box {
+    background: var(--black);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .problem-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    margin-bottom: 0.75rem;
+    color: var(--white);
+  }
+  .problem-box p { color: #b0aaa4; margin: 0; }
+
+  .journey {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .journey-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .journey-item:last-child { border-bottom: none; }
+  .journey-left {
+    padding: 1.5rem;
+    background: var(--accent-light);
+    border-right: 1px solid var(--border);
+  }
+  .journey-tool {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+  .journey-step {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .journey-right { padding: 1.5rem; }
+  .journey-right p { font-size: 13px; margin-bottom: 0.5rem; }
+  .journey-right p:last-child { margin-bottom: 0; }
+  .journey-limit {
+    font-size: 12px;
+    color: #a09080;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+  }
+  .journey-final .journey-left { background: var(--accent); }
+  .journey-final .journey-tool { color: var(--white); }
+  .journey-final .journey-step { color: var(--accent-light); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .feature-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+  .feature-icon { font-size: 20px; margin-bottom: 0.5rem; }
+  .feature-item h4 { font-size: 13px; font-weight: 500; color: var(--black); margin-bottom: 4px; }
+  .feature-item p { font-size: 13px; color: var(--mid); margin: 0; }
+
+  .tech-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
+  .tech-tag {
+    font-size: 12px;
+    color: var(--black);
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--white);
+  }
+
+  .outcome-box {
+    background: var(--accent-light);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    border: 1px solid var(--accent);
+  }
+  .outcome-box h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+  .outcome-box p { color: #1a3d30; margin: 0; }
+
+  .footer-note {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-note p { font-size: 13px; color: var(--mid); margin: 0; }
+  .next-btn { font-size: 13px; color: var(--accent); text-decoration: none; }
+  .next-btn:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    nav { padding: 1rem 1.25rem; }
+    .hero { padding: 3rem 1.25rem 2rem; }
+    section { padding: 2rem 1.25rem; }
+    .split { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .journey-item { grid-template-columns: 1fr; }
+    .journey-left { border-right: none; border-bottom: 1px solid var(--border); }
+    .footer-note { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Tina Behrouz</a>
+  <a class="nav-back" href="index.html">Back to Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-meta">
+    <span class="tag">Data Visualization</span>
+    <span class="tag">Tool Design</span>
+    <span class="tag">Bachelor's Thesis</span>
+  </div>
+  <h1>SpaceGraph — making <em>spatial relationships</em> visible.</h1>
+  <p class="hero-sub">Designing a large building means dealing with a lot of spaces that all need to relate to each other in specific ways. I tried the standard tools, found them lacking, and ended up building something of my own.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">3</span>
+      <span class="stat-label">Tools explored</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">Solo</span>
+      <span class="stat-label">Project</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">BSc</span>
+      <span class="stat-label">Thesis</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="section-label">Where it started</div>
+  <h2>A building with a lot of spaces and no clear way to see how they fit together.</h2>
+  <p>For my bachelor's thesis, I was designing a community center in Toronto for Iranian immigrants. The program was complex: cultural halls, language classrooms, community gathering spaces, administrative areas — all with specific requirements about which spaces needed to be close to each other, which needed separation, and how different floors should connect vertically.</p>
+  <p>The standard architectural approach to this problem is a concordance matrix: a table where you mark the desired relationship between every pair of spaces. I filled it in. But looking at a grid full of numbers didn't really help me think spatially. I could read the data, but I couldn't see the building.</p>
+
+  <div class="problem-box">
+    <h3>The matrix told me what. It didn't help me see why.</h3>
+    <p>When you're trying to understand which clusters of rooms belong together and how strongly they pull toward each other, a table is the wrong format. I needed something I could look at and immediately understand — not decode.</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">The process</div>
+  <h2>Two dead ends and one tool that worked.</h2>
+  <p>Getting to SpaceGraph took two earlier attempts, each of which solved part of the problem and revealed a new limitation.</p>
+
+  <div class="journey">
+    <div class="journey-item">
+      <div class="journey-left">
+        <div class="journey-step">First try</div>
+        <div class="journey-tool">Concordance Matrix</div>
+      </div>
+      <div class="journey-right">
+        <p>The standard tool architects use — a grid where each cell marks how strongly two spaces need to relate. I entered all the data for the Toronto building.</p>
+        <p class="journey-limit">The problem: it's still just a table. Hard to read spatially, impossible to compare alternatives visually.</p>
+      </div>
+    </div>
+    <div class="journey-item">
+      <div class="journey-left">
+        <div class="journey-step">Second try</div>
+        <div class="journey-tool">Node.js Bubble Diagram</div>
+      </div>
+      <div class="journey-right">
+        <p>I built a custom diagram in Node.js where each space is a bubble — its size representing the required area — connected to other spaces by lines whose thickness shows the strength of their relationship. This was the first time the data actually made visual sense.</p>
+        <p class="journey-limit">The problem: everything was flat. There was no way to show vertical relationships between floors, and I couldn't easily move spaces around to test alternative configurations.</p>
+      </div>
+    </div>
+    <div class="journey-item journey-final">
+      <div class="journey-left">
+        <div class="journey-step">Final tool</div>
+        <div class="journey-tool">SpaceGraph</div>
+      </div>
+      <div class="journey-right">
+        <p>Built in Grasshopper — Rhino's parametric design environment — SpaceGraph kept everything that worked in the bubble diagram and added what was missing: the ability to drag spaces freely, see the diagram update in real time, and visualize vertical floor-to-floor connections as a distinct layer.</p>
+        <p class="journey-limit">For the first time, I could actually design with the diagram rather than just read it.</p>
+      </div>
+    </div>
+  </div>
+
+  <img class="img-full" src="images/tool-1.png" alt="Node.js bubble diagram showing space relationships">
+  <p class="img-caption">The Node.js bubble diagram — the first visual version. Bubble size represents the area of each space, line thickness represents required relationship strength.</p>
+</section>
+
+<section>
+  <div class="section-label">The tool</div>
+  <h2>Drag a space, watch the diagram respond.</h2>
+  <p>SpaceGraph runs inside Grasshopper, Rhino's visual programming environment. You feed it the space data — areas, relationship weights, floor assignments — and it generates a 3D bubble diagram you can interact with directly. Move a space, and every connected line updates instantly.</p>
+  <p>The vertical dimension was the key addition over the Node.js version. Being able to see floor-to-floor connections as a separate visual layer made it much easier to think about circulation and vertical zoning — which is one of the harder things to reason about in early-stage architectural design.</p>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <div class="feature-icon">⚪</div>
+      <h4>Size-encoded spheres</h4>
+      <p>Each space is a sphere whose size corresponds to its required area — so larger rooms are immediately obvious.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">〰️</div>
+      <h4>Weighted connections</h4>
+      <p>Lines between spaces vary in thickness based on how strong the functional relationship needs to be.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🏢</div>
+      <h4>Vertical floor relationships</h4>
+      <p>Floor-to-floor connections are shown as a distinct layer — finally making vertical circulation visible in the diagram.</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🔄</div>
+      <h4>Live drag interaction</h4>
+      <p>Spaces can be repositioned freely inside Grasshopper — relationships update in real time as you explore alternatives.</p>
+    </div>
+  </div>
+
+  <img class="img-full" src="images/tool-2.png" alt="SpaceGraph parametric tool in Grasshopper">
+  <p class="img-caption">SpaceGraph running in Grasshopper — spaces positioned by hand, with relationship lines and floor connections updating live.</p>
+</section>
+
+<section>
+  <div class="section-label">The building</div>
+  <h2>A community center for Iranian immigrants in Toronto.</h2>
+  <p>The project SpaceGraph was built to serve was a community center designed around the specific needs of Iranian immigrants living in Toronto. Before starting the spatial design, I researched both Toronto's city planning requirements and the cultural and social needs of the community: what kinds of spaces matter, how people gather, what makes a building feel like it belongs to you.</p>
+  <p>That research shaped the program — and the complexity of that program is what made a tool like SpaceGraph necessary in the first place.</p>
+
+  <img class="img-full" src="images/tool-3.png" alt="Community center design for Iranian immigrants in Toronto">
+  <p class="img-caption">The community center design — developed using SpaceGraph to work through the spatial relationships before committing to a layout.</p>
+</section>
+
+<section>
+  <div class="section-label">Tech stack</div>
+  <h2>Parametric design, custom built.</h2>
+  <div class="tech-list">
+    <span class="tech-tag">Grasshopper</span>
+    <span class="tech-tag">Rhino 3D</span>
+    <span class="tech-tag">Node.js</span>
+    <span class="tech-tag">JavaScript</span>
+  </div>
+</section>
+
+<section>
+  <div class="section-label">Outcome</div>
+  <h2>A diagram you can think with, not just read.</h2>
+  <p>SpaceGraph made it possible to move between the data and the design in a way the concordance matrix never did. By the time I was done with it, the diagram had become a genuine part of the design process — not just a reference document, but something I was actively working with to test ideas.</p>
+  <div class="outcome-box">
+    <h3>Something that stuck with me</h3>
+    <p>This project taught me that the tools you use shape what you can think. A table keeps you in analysis mode. A diagram you can drag and reshape puts you in design mode. That's a small distinction that makes a big difference — and it's something I think about a lot when designing interfaces now.</p>
+  </div>
+</section>
+
+<div class="footer-note">
+  <p>Bachelor's Thesis — Architectural Engineering</p>
+  <a class="next-btn" href="index.html">Back to all projects</a>
+</div>
+
+</body>
+</html>
